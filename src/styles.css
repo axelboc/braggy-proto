@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.4;
+
+  --braggy-cyan: hsl(190, 90%, 50%);
+  --braggy-cyan-bg: hsl(190, 90%, 94%);
+  --braggy-cyan-bg-light: hsl(190, 90%, 98%);
+  --braggy-gray: hsl(208, 7%, 46%);
+
+  --h5w-toolbar--bgColor: var(--braggy-cyan-bg);
+  --h5w-btn-hover--bgColor: white;
+  --h5w-selector-option-selected--bgColor: var(--braggy-cyan-bg);
+  --h5w-domainSlider-track--width: 12rem;
+  --h5w-domainSlider-dataTrack--bgColor: var(--braggy-cyan);
+  --h5w-domainSlider-dataTrack--shadowColor: var(--braggy-gray);
+  --h5w-domainSlider-thumb--bgColor: white;
+  --h5w-domainSlider-thumb-auto--bgColor: white;
+  --h5w-domainControls-boundInput-editing--borderColor: var(--braggy-cyan);
+  --h5w-domainControls-boundInput-focus--shadowColor: var(--braggy-gray);
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+}
