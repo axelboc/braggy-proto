@@ -2,6 +2,7 @@ import {
   assertArrayShape,
   assertDataset,
   assertIntegerType,
+  assertNumDims,
   useDatasetValue,
   useEntity,
 } from '@h5web/app';
@@ -19,6 +20,7 @@ function ImageVisContainer(props: Props) {
   assertDataset(dataset);
   assertArrayShape(dataset);
   assertIntegerType(dataset);
+  assertNumDims(dataset, 3);
 
   const value = useDatasetValue(dataset, '0,:,:');
 

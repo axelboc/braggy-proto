@@ -20,9 +20,18 @@ importers:
       '@react-hookz/web':
         specifier: 25.1.1
         version: 25.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-three/fiber':
+        specifier: 8.17.12
+        version: 8.17.12(@types/react@18.3.19)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.172.0)
+      d3-format:
+        specifier: 3.1.0
+        version: 3.1.0
       just-standard-deviation:
         specifier: 2.2.0
         version: 2.2.0
+      lodash-es:
+        specifier: 4.17.21
+        version: 4.17.21
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -48,6 +57,15 @@ importers:
       '@esrf/eslint-config':
         specifier: 1.0.4
         version: 1.0.4(@typescript-eslint/utils@8.28.0(eslint@9.23.0)(typescript@5.8.2))(eslint@9.23.0)(typescript@5.8.2)
+      '@types/d3-format':
+        specifier: 3.0.4
+        version: 3.0.4
+      '@types/d3-scale-chromatic':
+        specifier: 3.1.0
+        version: 3.1.0
+      '@types/lodash-es':
+        specifier: 4.17.12
+        version: 4.17.12
       '@types/ndarray':
         specifier: ^1.0.14
         version: 1.0.14
@@ -1121,6 +1139,9 @@ packages:
   '@types/d3-format@3.0.1':
     resolution: {integrity: sha512-5KY70ifCCzorkLuIkDe0Z9YTf9RR2CjBX1iaJG+rgM/cPP+sO+q9YdQ9WdhQcgPj1EQiJ2/0+yUkkziTG6Lubg==}
 
+  '@types/d3-format@3.0.4':
+    resolution: {integrity: sha512-fALi2aI6shfg7vM5KiR1wNJnZ7r6UuggVqtDA+xiEdPZQwy/trcQaHnwShLuLdta2rTymCNpxYTiMZX/e09F4g==}
+
   '@types/d3-geo@3.1.0':
     resolution: {integrity: sha512-856sckF0oP/diXtS4jNsiQw/UuK5fQG8l/a9VVLeSouf1/PPbBE1i1W852zVwKwYCBkFJJB7nCFTbk6UMEXBOQ==}
 
@@ -1129,6 +1150,9 @@ packages:
 
   '@types/d3-path@1.0.11':
     resolution: {integrity: sha512-4pQMp8ldf7UaB/gR8Fvvy69psNHkTpD/pVw3vmEi8iZAB9EPMBruB1JvHO4BIq9QkUUd2lV1F5YXpMNj7JPBpw==}
+
+  '@types/d3-scale-chromatic@3.1.0':
+    resolution: {integrity: sha512-iWMJgwkK7yTRmWqRB5plb1kadXyQ5Sj8V/zYlFGMUBbIPKQScw+Dku9cAAMgJG+z5GYDoMjWGLVOvjghDEFnKQ==}
 
   '@types/d3-scale@4.0.2':
     resolution: {integrity: sha512-Yk4htunhPAwN0XGlIwArRomOjdoBFXC3+kCxK2Ubg7I9shQlVSJy/pG/Ht5ASN+gdMIalpk8TJ5xV74jFsetLA==}
@@ -1156,6 +1180,9 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
   '@types/lodash@4.17.16':
     resolution: {integrity: sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==}
@@ -2212,6 +2239,9 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
+
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
@@ -4049,6 +4079,8 @@ snapshots:
 
   '@types/d3-format@3.0.1': {}
 
+  '@types/d3-format@3.0.4': {}
+
   '@types/d3-geo@3.1.0':
     dependencies:
       '@types/geojson': 7946.0.16
@@ -4058,6 +4090,8 @@ snapshots:
       '@types/d3-color': 3.1.0
 
   '@types/d3-path@1.0.11': {}
+
+  '@types/d3-scale-chromatic@3.1.0': {}
 
   '@types/d3-scale@4.0.2':
     dependencies:
@@ -4080,6 +4114,10 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.16
 
   '@types/lodash@4.17.16': {}
 
@@ -5416,6 +5454,8 @@ snapshots:
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
+
+  lodash-es@4.17.21: {}
 
   lodash.debounce@4.0.8: {}
 

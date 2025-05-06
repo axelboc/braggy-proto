@@ -3,6 +3,7 @@ import {
   ColorMapSelector,
   type Domain,
   DomainWidget,
+  INTERPOLATORS,
   ScaleSelector,
   Separator,
   ToggleBtn,
@@ -10,7 +11,8 @@ import {
 } from '@h5web/lib';
 import { BsGrid3X3 } from 'react-icons/bs';
 
-import { useImageConfig } from './config';
+import { useImageConfig } from '../config';
+import RingControl from './RingControl';
 
 interface Props {
   dataDomain: Domain;
@@ -30,6 +32,11 @@ function ImageToolbar(props: Props) {
     setScaleType,
     showGrid,
     toggleGrid,
+    showRings,
+    toggleRings,
+    ringColor,
+    setRingColor,
+    getCssRingColor,
   } = useImageConfig();
 
   return (
@@ -58,6 +65,16 @@ function ImageToolbar(props: Props) {
         onValueChange={setColorMap}
         invert={invertColorMap}
         onInversionChange={toggleColorMapInversion}
+      />
+
+      <Separator />
+
+      <RingControl
+        showRings={showRings}
+        ringColor={ringColor}
+        toggleRings={toggleRings}
+        setRingColor={setRingColor}
+        getCssRingColor={getCssRingColor}
       />
 
       <Separator />
