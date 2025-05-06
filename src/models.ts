@@ -5,11 +5,11 @@ export enum RingColor {
   ColorMapMax = 'Colormap max',
 }
 
-export interface BraggyHeader {
-  pixelSizeX: number;
-  pixelSizeY: number;
-  wavelength: number;
+export interface InstrumentInfo {
+  xPixelSize: number;
+  yPixelSize: number;
+  beamCenterX: number;
+  beamCenterY: number;
   detectorDistance: number;
-  beamOcx: number;
-  beamOcy: number;
+  wavelength: number;
 }

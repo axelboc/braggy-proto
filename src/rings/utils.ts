@@ -17,11 +17,11 @@ export function getRingCanvasRadii(maxRadius: number): number[] {
 export function computeResolution(
   realRadius: number,
   wavelength: number,
-  detector_distance: number,
+  detectorDistance: number,
 ): number {
   return (
     (0.5 * wavelength) /
-    Math.sin(0.5 * Math.atan2(realRadius, detector_distance))
+    Math.sin(0.5 * Math.atan2(realRadius, detectorDistance))
   );
 }
 

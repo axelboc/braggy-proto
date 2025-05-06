@@ -6,17 +6,17 @@ import Boundary from './Boundary';
 import ImageVisContainer from './ImageVisContainer';
 
 const URL = import.meta.env.VITE_H5GROVE_URL || '';
+const FILEPATH = 'FetuB-27A_5_w1_1_1_master.h5';
 
 function Viewer() {
   assertEnvVar(URL, 'VITE_H5GROVE_URL');
 
-  const filepath = 'braggy.h5';
-  const axiosConfig = useMemo(() => ({ params: { file: filepath } }), []);
+  const axiosConfig = useMemo(() => ({ params: { file: FILEPATH } }), []);
 
   const [toolbarElem, setToolbarElem] = useState<HTMLDivElement>();
 
   return (
-    <H5GroveProvider url={URL} filepath={filepath} axiosConfig={axiosConfig}>
+    <H5GroveProvider url={URL} filepath={FILEPATH} axiosConfig={axiosConfig}>
       <div className={styles.root}>
         <div
           ref={(elem) => setToolbarElem(elem ?? undefined)}
