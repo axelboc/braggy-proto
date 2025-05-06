@@ -3,7 +3,7 @@ import {
   ColorMapSelector,
   type Domain,
   DomainWidget,
-  INTERPOLATORS,
+  type InteractionInfo,
   ScaleSelector,
   Separator,
   ToggleBtn,
@@ -13,6 +13,12 @@ import { BsGrid3X3 } from 'react-icons/bs';
 
 import { useImageConfig } from '../config';
 import RingControl from './RingControl';
+
+export const INTERACTIONS: InteractionInfo[] = [
+  { shortcut: 'Drag', description: 'Pan' },
+  { shortcut: 'Wheel', description: 'Zoom' },
+  { shortcut: `Ctrl+Drag`, description: 'Select to zoom' },
+];
 
 interface Props {
   dataDomain: Domain;
@@ -40,7 +46,7 @@ function ImageToolbar(props: Props) {
   } = useImageConfig();
 
   return (
-    <Toolbar>
+    <Toolbar interactions={INTERACTIONS}>
       <Separator />
 
       <DomainWidget
