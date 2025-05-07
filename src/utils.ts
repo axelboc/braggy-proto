@@ -21,8 +21,12 @@ import { type InstrumentInfo } from './models';
 
 export const CANCELLED_ERROR_MSG = 'Request cancelled';
 
-export const FILL_VALUE = 65_535;
 export const DEFAULT_DOMAIN: Domain = [0.1, 1];
+export const FILL_VALUE = 65_535;
+
+export function IGNORE_VALUE(val: number): boolean {
+  return val === FILL_VALUE;
+}
 
 export function useNumArray(values: ArrayValue<IntegerType>): number[] {
   return useMemo(() => [...values].map(Number), [values]);

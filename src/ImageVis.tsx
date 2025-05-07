@@ -22,7 +22,7 @@ import { type InstrumentInfo } from './models';
 import Rings from './rings/Rings';
 import ImageToolbar from './toolbar/ImageToolbar';
 import Tooltip from './Tooltip';
-import { DEFAULT_DOMAIN, FILL_VALUE, useNumArray } from './utils';
+import { DEFAULT_DOMAIN, FILL_VALUE, IGNORE_VALUE, useNumArray } from './utils';
 
 interface Props {
   dataset: Dataset<ArrayShape, IntegerType>;
@@ -71,6 +71,7 @@ function ImageVis(props: Props) {
         dataArray={dataArray}
         domain={safeDomain}
         scaleType={scaleType}
+        ignoreValue={IGNORE_VALUE}
         colorMap={colorMap}
         invertColorMap={invertColorMap}
         showGrid={showGrid}
