@@ -21,6 +21,7 @@ import { useImageConfig } from './config';
 import { type InstrumentInfo } from './models';
 import Rings from './rings/Rings';
 import ImageToolbar from './toolbar/ImageToolbar';
+import Tooltip from './Tooltip';
 import { DEFAULT_DOMAIN, FILL_VALUE, useNumArray } from './utils';
 
 interface Props {
@@ -74,6 +75,14 @@ function ImageVis(props: Props) {
         invertColorMap={invertColorMap}
         showGrid={showGrid}
         flipYAxis
+        renderTooltip={({ xi, yi }) => (
+          <Tooltip
+            xIndex={xi}
+            yIndex={yi}
+            value={dataArray.get(yi, xi)}
+            instrumentInfo={instrumentInfo}
+          />
+        )}
       >
         {showRings && (
           <Rings

@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { Plane, Vector3 } from 'three';
 
 export const formatRealValue = format('.2f');
+export const formatTooltipVal = format('.5~g');
 
 export function getRingCanvasRadii(maxRadius: number): number[] {
   const numRings = clamp(3 + Math.round((4 * (maxRadius - 100)) / 600), 3, 7);
