@@ -1,7 +1,7 @@
 import { type FallbackProps } from 'react-error-boundary';
 
 import styles from './ErrorFallback.module.css';
-import { CANCELLED_ERROR_MSG } from './utils';
+import { CANCELLED_ERROR_MSG } from './utils-data';
 
 function prepareReport(message: string): string {
   return `<< THIS EMAIL IS A TEMPLATE >>

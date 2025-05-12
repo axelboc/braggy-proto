@@ -85,7 +85,7 @@ export const useImageConfig = create<ImageConfig>()(
     }),
     {
       name: 'braggy:image',
-      version: 3,
+      version: 4,
     },
   ),
 );

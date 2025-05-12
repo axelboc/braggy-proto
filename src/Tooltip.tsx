@@ -4,7 +4,7 @@ import {
   computeResolution,
   formatRealValue,
   formatTooltipVal,
-} from './vis-utils';
+} from './utils-vis';
 
 interface Props {
   xIndex: number;

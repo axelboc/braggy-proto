@@ -8,7 +8,7 @@ import {
 } from '@h5web/app';
 
 import ImageVis from './ImageVis';
-import { useDetectorInfo } from './utils';
+import { useDetectorInfo } from './utils-data';
 
 interface Props {
   toolbarElem: HTMLDivElement | undefined;

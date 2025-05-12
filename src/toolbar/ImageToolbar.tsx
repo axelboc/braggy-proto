@@ -3,6 +3,7 @@ import {
   ColorMapSelector,
   type Domain,
   DomainWidget,
+  type HistogramParams,
   type InteractionInfo,
   ScaleSelector,
   Separator,
@@ -22,10 +23,11 @@ export const INTERACTIONS: InteractionInfo[] = [
 
 interface Props {
   dataDomain: Domain;
+  histogram: Pick<HistogramParams, 'values' | 'bins'>;
 }
 
 function ImageToolbar(props: Props) {
-  const { dataDomain } = props;
+  const { dataDomain, histogram } = props;
 
   const {
     customDomain,
@@ -53,6 +55,7 @@ function ImageToolbar(props: Props) {
         dataDomain={dataDomain}
         customDomain={customDomain}
         scaleType={scaleType}
+        histogram={{ ...histogram, colorMap, invertColorMap }}
         onCustomDomainChange={setCustomDomain}
       />
 

@@ -6,14 +6,7 @@ import {
   useDataContext,
   useNdArray,
 } from '@h5web/app';
-import {
-  type Domain,
-  HeatmapVis,
-  useDomain,
-  useSafeDomain,
-  useVisDomain,
-} from '@h5web/lib';
-import standardDeviation from 'just-standard-deviation';
+import { HeatmapVis, useSafeDomain, useVisDomain } from '@h5web/lib';
 import { useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -22,7 +15,12 @@ import { type InstrumentInfo } from './models';
 import Rings from './rings/Rings';
 import ImageToolbar from './toolbar/ImageToolbar';
 import Tooltip from './Tooltip';
-import { DEFAULT_DOMAIN, FILL_VALUE, IGNORE_VALUE, useNumArray } from './utils';
+import {
+  useDomain,
+  useHistogram,
+  useIgnoreValue,
+  useNumArray,
+} from './utils-vis';
 
 interface Props {
   dataset: Dataset<ArrayShape, IntegerType>;
@@ -33,6 +31,7 @@ interface Props {
 
 function ImageVis(props: Props) {
   const { dataset, value, instrumentInfo, toolbarElem } = props;
+  const { thresholdEnergy } = instrumentInfo;
 
   const { filename } = useDataContext();
 
@@ -50,28 +49,28 @@ function ImageVis(props: Props) {
   const slicedDims = useMemo(() => dataset.shape.slice(1), [dataset]);
   const dataArray = useNdArray(useNumArray(value), slicedDims);
 
-  const domain = useDomain(dataArray, scaleType) || DEFAULT_DOMAIN;
-  const domainStd: Domain = useMemo(() => {
-    const std = standardDeviation(
-      dataArray.data.filter((val) => val !== FILL_VALUE),
-    );
-    return [domain[0], std];
-  }, [dataArray, domain]);
+  const domainStd = useDomain(dataArray, scaleType, thresholdEnergy);
+  const ignoreValue = useIgnoreValue(thresholdEnergy);
 
   const visDomain = useVisDomain(customDomain, domainStd);
   const [safeDomain] = useSafeDomain(visDomain, domainStd, scaleType);
 
+  const histogram = useHistogram(dataArray, domainStd[1]);
+
   return (
     <>
       {toolbarElem &&
-        createPortal(<ImageToolbar dataDomain={domainStd} />, toolbarElem)}
+        createPortal(
+          <ImageToolbar dataDomain={domainStd} histogram={histogram} />,
+          toolbarElem,
+        )}
 
       <HeatmapVis
         title={filename}
         dataArray={dataArray}
         domain={safeDomain}
         scaleType={scaleType}
-        ignoreValue={IGNORE_VALUE}
+        ignoreValue={ignoreValue}
         colorMap={colorMap}
         invertColorMap={invertColorMap}
         showGrid={showGrid}

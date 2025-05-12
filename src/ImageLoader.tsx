@@ -1,7 +1,7 @@
 import { useDataContext } from '@h5web/app';
 
 import styles from './ImageLoader.module.css';
-import { CANCELLED_ERROR_MSG } from './utils';
+import { CANCELLED_ERROR_MSG } from './utils-data';
 
 function ImageLoader() {
   const { valuesStore } = useDataContext();

@@ -1,29 +1,14 @@
 import { useVisCanvasContext } from '@h5web/lib';
 import { useThree } from '@react-three/fiber';
-import { format } from 'd3-format';
 import clamp from 'lodash-es/clamp';
 import range from 'lodash-es/range';
 import { useEffect } from 'react';
 import { Plane, Vector3 } from 'three';
 
-export const formatRealValue = format('.2f');
-export const formatTooltipVal = format('.5~g');
-
 export function getRingCanvasRadii(maxRadius: number): number[] {
   const numRings = clamp(3 + Math.round((4 * (maxRadius - 100)) / 600), 3, 7);
 
   return range(0.99 * maxRadius, 0, -maxRadius / numRings);
-}
-
-export function computeResolution(
-  realRadius: number,
-  wavelength: number,
-  detectorDistance: number,
-): number {
-  return (
-    (0.5 * wavelength) /
-    Math.sin(0.5 * Math.atan2(realRadius, detectorDistance))
-  );
 }
 
 export function useVisClipping(): void {

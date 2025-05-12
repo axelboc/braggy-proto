@@ -1,8 +1,8 @@
 export enum RingColor {
   Black = 'Black',
   White = 'White',
-  ColorMapMin = 'Colormap min',
-  ColorMapMax = 'Colormap max',
+  ColorMapMin = 'Min',
+  ColorMapMax = 'Max',
 }
 
 export interface InstrumentInfo {
@@ -11,5 +11,6 @@ export interface InstrumentInfo {
   beamCenterX: number;
   beamCenterY: number;
   detectorDistance: number;
+  thresholdEnergy: number;
   wavelength: number;
 }

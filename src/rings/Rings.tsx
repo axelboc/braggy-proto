@@ -3,14 +3,10 @@ import { Fragment } from 'react/jsx-runtime';
 import { Vector3 } from 'three';
 
 import { type InstrumentInfo } from '../models';
-import {
-  computeResolution,
-  formatRealValue,
-  getRingCanvasRadii,
-  useVisClipping,
-} from '../vis-utils';
+import { computeResolution, formatRealValue } from '../utils-vis';
 import BeamCenter from './BeamCenter';
 import styles from './Rings.module.css';
+import { getRingCanvasRadii, useVisClipping } from './utils';
 
 interface Props {
   dims: number[];
