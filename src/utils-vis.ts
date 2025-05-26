@@ -3,12 +3,14 @@ import {
   type Domain,
   type HistogramParams,
   type IgnoreValue,
-  ScaleType,
+  type ScaleType,
+  useValidDomainForScale,
 } from '@h5web/lib';
 import { format } from 'd3-format';
-import standardDeviation from 'just-standard-deviation';
 import { type NdArray } from 'ndarray';
 import { useCallback, useMemo } from 'react';
+
+import { type Bounds } from './models';
 
 export const formatRealValue = format('.2f');
 export const formatTooltipVal = format('.5~g');
@@ -22,18 +24,50 @@ export function useNumArray(values: ArrayValue<IntegerType>): number[] {
 export function useDomain(
   dataArray: NdArray<number[]>,
   scaleType: ScaleType,
-  threshold: number,
+  ignoreValue: IgnoreValue,
 ): Domain {
+  const bounds = useBounds(dataArray.data, ignoreValue);
+  return useValidDomainForScale(bounds, scaleType) || DEFAULT_DOMAIN;
+}
+
+function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {
   return useMemo(() => {
-    const min =
-      scaleType !== ScaleType.Linear && scaleType !== ScaleType.SymLog ? 1 : 0;
+    let mean = 0;
+    let sumSqrs = 0;
+    let count = 0;
 
-    const max = standardDeviation(
-      dataArray.data.filter((val) => val < threshold),
-    );
+    let min = Infinity;
+    let max = -Infinity;
+    let positiveMin = Infinity;
+    let strictPositiveMin = Infinity;
 
-    return [min, max];
-  }, [dataArray, scaleType, threshold]);
+    for (const val of values) {
+      // Ignore NaN and Infinity from the bounds computation
+      if (!Number.isFinite(val) || ignoreValue(val)) {
+        continue; // eslint-disable-line no-continue
+      }
+
+      const delta = val - mean;
+      count += 1;
+      mean += delta / count;
+      sumSqrs += delta * (val - mean);
+
+      min = Math.min(val, min);
+      max = Math.max(val, max);
+      positiveMin = val >= 0 ? Math.min(val, positiveMin) : positiveMin;
+      strictPositiveMin =
+        val > 0 ? Math.min(val, strictPositiveMin) : strictPositiveMin;
+    }
+
+    const threeStdDevs = 3 * Math.sqrt(sumSqrs / count);
+
+    return {
+      min: Math.max(min, mean - threeStdDevs),
+      max: Math.min(max, mean + threeStdDevs),
+      positiveMin,
+      strictPositiveMin,
+    };
+  }, [values, ignoreValue]);
 }
 
 export function useIgnoreValue(threshold: number): IgnoreValue {

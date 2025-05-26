@@ -49,19 +49,19 @@ function ImageVis(props: Props) {
   const slicedDims = useMemo(() => dataset.shape.slice(1), [dataset]);
   const dataArray = useNdArray(useNumArray(value), slicedDims);
 
-  const domainStd = useDomain(dataArray, scaleType, thresholdEnergy);
   const ignoreValue = useIgnoreValue(thresholdEnergy);
+  const domain = useDomain(dataArray, scaleType, ignoreValue);
 
-  const visDomain = useVisDomain(customDomain, domainStd);
-  const [safeDomain] = useSafeDomain(visDomain, domainStd, scaleType);
+  const visDomain = useVisDomain(customDomain, domain);
+  const [safeDomain] = useSafeDomain(visDomain, domain, scaleType);
 
-  const histogram = useHistogram(dataArray, domainStd[1]);
+  const histogram = useHistogram(dataArray, domain[1]);
 
   return (
     <>
       {toolbarElem &&
         createPortal(
-          <ImageToolbar dataDomain={domainStd} histogram={histogram} />,
+          <ImageToolbar dataDomain={domain} histogram={histogram} />,
           toolbarElem,
         )}
 

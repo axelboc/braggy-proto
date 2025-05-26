@@ -30,7 +30,6 @@
     "@react-hookz/web": "25.1.1",
     "@react-three/fiber": "8.17.12",
     "d3-format": "3.1.0",
-    "just-standard-deviation": "2.2.0",
     "lodash-es": "4.17.21",
     "react": "18.3.1",
     "react-dom": "18.3.1",

@@ -14,3 +14,10 @@ export interface InstrumentInfo {
   thresholdEnergy: number;
   wavelength: number;
 }
+
+export interface Bounds {
+  min: number;
+  max: number;
+  positiveMin: number;
+  strictPositiveMin: number;
+}

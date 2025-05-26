@@ -26,9 +26,6 @@ importers:
       d3-format:
         specifier: 3.1.0
         version: 3.1.0
-      just-standard-deviation:
-        specifier: 2.2.0
-        version: 2.2.0
       lodash-es:
         specifier: 4.17.21
         version: 4.17.21
@@ -2218,9 +2215,6 @@ packages:
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
-
-  just-standard-deviation@2.2.0:
-    resolution: {integrity: sha512-sy6d9GCMAVz2pEzucNdGiTBhOJxjY8GK5/8+oim1ALzsfCFqd7MGSQnTUVoqBEUU54Iiv5a0BoZIfqY3pO22tA==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -5433,8 +5427,6 @@ snapshots:
       array.prototype.flat: 1.3.3
       object.assign: 4.1.7
       object.values: 1.2.1
-
-  just-standard-deviation@2.2.0: {}
 
   keyv@4.5.4:
     dependencies:
