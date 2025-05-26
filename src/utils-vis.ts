@@ -15,22 +15,17 @@ import { type Bounds } from './models';
 export const formatRealValue = format('.2f');
 export const formatTooltipVal = format('.5~g');
 
-export const DEFAULT_DOMAIN: Domain = [0.1, 1];
+export const DEFAULT_DOMAIN: Domain = [1, 10];
 
 export function useNumArray(values: ArrayValue<IntegerType>): number[] {
   return useMemo(() => [...values].map(Number), [values]);
 }
 
-export function useDomain(
-  dataArray: NdArray<number[]>,
-  scaleType: ScaleType,
-  ignoreValue: IgnoreValue,
-): Domain {
-  const bounds = useBounds(dataArray.data, ignoreValue);
-  return useValidDomainForScale(bounds, scaleType) || DEFAULT_DOMAIN;
+export function useIgnoreValue(threshold: number): IgnoreValue {
+  return useCallback((val) => val > threshold, [threshold]);
 }
 
-function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {
+export function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {
   return useMemo(() => {
     let mean = 0;
     let sumSqrs = 0;
@@ -62,32 +57,52 @@ function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {
     const threeStdDevs = 3 * Math.sqrt(sumSqrs / count);
 
     return {
-      min: Math.max(min, mean - threeStdDevs),
-      max: Math.min(max, mean + threeStdDevs),
+      min,
+      max,
+      stdMin: Math.max(min, mean - threeStdDevs),
+      stdMax: Math.min(max, mean + threeStdDevs),
       positiveMin,
       strictPositiveMin,
     };
   }, [values, ignoreValue]);
 }
 
-export function useIgnoreValue(threshold: number): IgnoreValue {
-  return useCallback((val) => val > threshold, [threshold]);
+export function useDomain(
+  bounds: Bounds,
+  scaleType: ScaleType,
+): { fullDomain: Domain; stdDomain: Domain } {
+  const stdBounds = useMemo(
+    () => ({ ...bounds, min: bounds.stdMin, max: bounds.stdMax }),
+    [bounds],
+  );
+
+  return {
+    fullDomain: useValidDomainForScale(bounds, scaleType) || DEFAULT_DOMAIN,
+    stdDomain: useValidDomainForScale(stdBounds, scaleType) || DEFAULT_DOMAIN,
+  };
 }
 
 export function useHistogram(
   dataArray: NdArray<number[]>,
-  binsCount: number,
+  domain: Domain,
 ): Pick<HistogramParams, 'values' | 'bins'> {
   return useMemo(() => {
+    const min = Math.floor(domain[0]);
+    const max = Math.ceil(domain[1]);
+    const size = max - min;
+
+    const binsCount = Math.min(size, 10);
+    const binSize = size / binsCount;
+
+    const bins = Array.from({ length: binsCount }, (_, i) => min + binSize * i);
     const values = Array.from({ length: binsCount }, () => 0);
-    const bins = Array.from({ length: binsCount }, (_, i) => i);
 
     dataArray.data.forEach((val) => {
-      values[val] += 1;
+      values[Math.floor((val - min) / binSize)] += 1;
     });
 
-    return { values, bins };
-  }, [dataArray, binsCount]);
+    return { bins, values };
+  }, [dataArray, domain]);
 }
 
 export function computeResolution(

@@ -18,6 +18,8 @@ export interface InstrumentInfo {
 export interface Bounds {
   min: number;
   max: number;
+  stdMin: number;
+  stdMax: number;
   positiveMin: number;
   strictPositiveMin: number;
 }

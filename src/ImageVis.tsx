@@ -16,6 +16,7 @@ import Rings from './rings/Rings';
 import ImageToolbar from './toolbar/ImageToolbar';
 import Tooltip from './Tooltip';
 import {
+  useBounds,
   useDomain,
   useHistogram,
   useIgnoreValue,
@@ -50,18 +51,20 @@ function ImageVis(props: Props) {
   const dataArray = useNdArray(useNumArray(value), slicedDims);
 
   const ignoreValue = useIgnoreValue(thresholdEnergy);
-  const domain = useDomain(dataArray, scaleType, ignoreValue);
+  const bounds = useBounds(dataArray.data, ignoreValue);
 
-  const visDomain = useVisDomain(customDomain, domain);
-  const [safeDomain] = useSafeDomain(visDomain, domain, scaleType);
+  const { /* fullDomain,*/ stdDomain } = useDomain(bounds, scaleType);
+  const visDomain = useVisDomain(customDomain, stdDomain);
+  const [safeDomain] = useSafeDomain(visDomain, stdDomain, scaleType);
 
-  const histogram = useHistogram(dataArray, domain[1]);
+  const histogram = useHistogram(dataArray, stdDomain);
+  // const histogram = useHistogram(dataArray, fullDomain);
 
   return (
     <>
       {toolbarElem &&
         createPortal(
-          <ImageToolbar dataDomain={domain} histogram={histogram} />,
+          <ImageToolbar dataDomain={stdDomain} histogram={histogram} />,
           toolbarElem,
         )}
 
