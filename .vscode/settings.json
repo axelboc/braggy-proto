@@ -15,7 +15,8 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "typescript.preferences.autoImportSpecifierExcludeRegexes": [
-    "^(node:)?(console|util|test)$"
+    "^(node:)?(console|util|test)$",
+    "^three\/(tsl$|src\/)"
   ],
 
   "eslint.codeAction.disableRuleComment": { "location": "sameLine" }

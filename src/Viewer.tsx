@@ -2,6 +2,7 @@ import { assertEnvVar, H5GroveProvider } from '@h5web/app';
 import { useMemo, useState } from 'react';
 
 import Boundary from './Boundary';
+import { useSessionId } from './icat';
 import ImageVisContainer from './ImageVisContainer';
 import styles from './Viewer.module.css';
 
@@ -10,6 +11,9 @@ const FILEPATH = 'FetuB-27A_5_w1_1_1_master.h5';
 
 function Viewer() {
   assertEnvVar(H5GROVE_URL, 'VITE_H5GROVE_URL');
+
+  // const sessionId = useSessionId();
+  // console.log(sessionId);
 
   const axiosConfig = useMemo(() => ({ params: { file: FILEPATH } }), []);
 

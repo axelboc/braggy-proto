@@ -2,6 +2,7 @@ import '@h5web/lib/styles.css';
 import './styles.css';
 
 import { assertEnvVar, assertNonNull } from '@h5web/app';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AuthProvider } from 'react-oidc-context';
@@ -17,23 +18,27 @@ assertEnvVar(SSO_CLIENT_ID, 'VITE_SSO_CLIENT_ID');
 const rootElem = document.querySelector('#root');
 assertNonNull(rootElem);
 
+const queryClient = new QueryClient();
+
 createRoot(rootElem).render(
   <StrictMode>
-    <AuthProvider
-      authority={SSO_AUTHORITY_URL}
-      client_id={SSO_CLIENT_ID}
-      redirect_uri={globalThis.location.origin}
-      onSigninCallback={() => {
-        globalThis.history.replaceState(
-          {},
-          document.title,
-          globalThis.location.pathname,
-        );
-      }}
-    >
-      <Auth>
-        <Viewer />
-      </Auth>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider
+        authority={SSO_AUTHORITY_URL}
+        client_id={SSO_CLIENT_ID}
+        redirect_uri={globalThis.location.origin}
+        onSigninCallback={() => {
+          globalThis.history.replaceState(
+            {},
+            document.title,
+            globalThis.location.pathname,
+          );
+        }}
+      >
+        <Auth>
+          <Viewer />
+        </Auth>
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );

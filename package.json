@@ -29,6 +29,7 @@
     "@h5web/lib": "14.0.1",
     "@react-hookz/web": "25.1.1",
     "@react-three/fiber": "8.17.12",
+    "@tanstack/react-query": "5.80.6",
     "d3-format": "3.1.0",
     "lodash-es": "4.17.21",
     "oidc-client-ts": "3.2.1",
