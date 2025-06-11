@@ -98,7 +98,10 @@ export function useHistogram(
     const values = Array.from({ length: binsCount }, () => 0);
 
     dataArray.data.forEach((val) => {
-      values[Math.floor((val - min) / binSize)] += 1;
+      const index = Math.floor((val - min) / binSize);
+      if (index in values) {
+        values[index] += 1;
+      }
     });
 
     return { bins, values };
