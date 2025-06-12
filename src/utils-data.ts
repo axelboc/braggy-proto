@@ -1,12 +1,12 @@
 import {
   assertDataset,
   assertDefined,
-  assertFloatType,
   assertGroup,
+  assertNumericType,
   assertScalarShape,
   type Dataset,
-  type FloatType,
   type GroupWithChildren,
+  type NumericType,
   type ScalarShape,
   useDatasetsValues,
   useEntity,
@@ -18,8 +18,10 @@ import { type InstrumentInfo } from './models';
 export const CANCELLED_ERROR_MSG = 'Request cancelled';
 
 export function useDetectorInfo(): InstrumentInfo {
-  const beamGroup = useEntity('/entry/instrument/beam');
-  const detectorGroup = useEntity('/entry/instrument/detector');
+  const beamGroup = useEntity('/entry_0000/instrument/jungfrau4m_rr4_smx/beam');
+  const detectorGroup = useEntity(
+    '/entry_0000/instrument/jungfrau4m_rr4_smx/detector_information',
+  );
   assertGroup(beamGroup);
   assertGroup(detectorGroup);
 
@@ -29,7 +31,8 @@ export function useDetectorInfo(): InstrumentInfo {
     getChildDataset(detectorGroup, 'beam_center_x'),
     getChildDataset(detectorGroup, 'beam_center_y'),
     getChildDataset(detectorGroup, 'detector_distance'),
-    getChildDataset(detectorGroup, 'threshold_energy'),
+    getChildDataset(detectorGroup, 'saturation_value'),
+    getChildDataset(detectorGroup, 'underload_value'),
     getChildDataset(beamGroup, 'incident_wavelength'),
   ];
 
@@ -40,9 +43,10 @@ export function useDetectorInfo(): InstrumentInfo {
     beamCenterX,
     beamCenterY,
     detectorDistance,
-    thresholdEnergy,
+    saturationValue,
+    underloadValue,
     wavelength,
-  ] = useDatasetsValues(infoDatasets);
+  ] = useDatasetsValues(infoDatasets).map(Number);
 
   return {
     xPixelSize,
@@ -50,7 +54,8 @@ export function useDetectorInfo(): InstrumentInfo {
     beamCenterX,
     beamCenterY,
     detectorDistance,
-    thresholdEnergy,
+    saturationValue,
+    underloadValue,
     wavelength,
   };
 }
@@ -58,12 +63,12 @@ export function useDetectorInfo(): InstrumentInfo {
 export function getChildDataset(
   group: GroupWithChildren,
   datasetName: string,
-): Dataset<ScalarShape, FloatType> {
+): Dataset<ScalarShape, NumericType> {
   const dataset = group.children.find((child) => child.name === datasetName);
   assertDefined(dataset);
   assertDataset(dataset);
   assertScalarShape(dataset);
-  assertFloatType(dataset);
+  assertNumericType(dataset);
 
   return dataset;
 }

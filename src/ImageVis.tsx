@@ -32,7 +32,7 @@ interface Props {
 
 function ImageVis(props: Props) {
   const { dataset, value, instrumentInfo, toolbarElem } = props;
-  const { thresholdEnergy } = instrumentInfo;
+  const { saturationValue, underloadValue } = instrumentInfo;
 
   const { filename } = useDataContext();
 
@@ -50,7 +50,7 @@ function ImageVis(props: Props) {
   const slicedDims = useMemo(() => dataset.shape.slice(1), [dataset]);
   const dataArray = useNdArray(useNumArray(value), slicedDims);
 
-  const ignoreValue = useIgnoreValue(thresholdEnergy);
+  const ignoreValue = useIgnoreValue(underloadValue, saturationValue);
   const bounds = useBounds(dataArray.data, ignoreValue);
 
   const { /* fullDomain,*/ stdDomain } = useDomain(bounds, scaleType);

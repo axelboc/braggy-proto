@@ -19,13 +19,13 @@ function ImageVisContainer(props: Props) {
 
   const detectorInfo = useDetectorInfo();
 
-  const dataset = useEntity('/entry/data/data_000001');
+  const dataset = useEntity('/entry_0000/measurement/data');
   assertDataset(dataset);
   assertArrayShape(dataset);
   assertIntegerType(dataset);
   assertNumDims(dataset, 3);
 
-  const value = useDatasetValue(dataset, '0,:,:');
+  const value = useDatasetValue(dataset, '24170,:,:');
 
   return (
     <ImageVis

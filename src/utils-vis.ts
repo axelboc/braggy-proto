@@ -21,8 +21,8 @@ export function useNumArray(values: ArrayValue<IntegerType>): number[] {
   return useMemo(() => [...values].map(Number), [values]);
 }
 
-export function useIgnoreValue(threshold: number): IgnoreValue {
-  return useCallback((val) => val > threshold, [threshold]);
+export function useIgnoreValue(min: number, max: number): IgnoreValue {
+  return useCallback((val) => val < min || val > max, [min, max]);
 }
 
 export function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {

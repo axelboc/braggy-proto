@@ -11,7 +11,8 @@ export interface InstrumentInfo {
   beamCenterX: number;
   beamCenterY: number;
   detectorDistance: number;
-  thresholdEnergy: number;
+  saturationValue: number;
+  underloadValue: number;
   wavelength: number;
 }
 
