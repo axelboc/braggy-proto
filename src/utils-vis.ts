@@ -39,7 +39,7 @@ export function useBounds(values: number[], ignoreValue: IgnoreValue): Bounds {
     for (const val of values) {
       // Ignore NaN and Infinity from the bounds computation
       if (!Number.isFinite(val) || ignoreValue(val)) {
-        continue; // eslint-disable-line no-continue
+        continue;
       }
 
       const delta = val - mean;
