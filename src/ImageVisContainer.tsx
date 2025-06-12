@@ -6,6 +6,7 @@ import {
   useDatasetValue,
   useEntity,
 } from '@h5web/app';
+import { useSearchParams } from 'wouter';
 
 import ImageVis from './ImageVis';
 import { useDetectorInfo } from './utils-data';
@@ -25,7 +26,10 @@ function ImageVisContainer(props: Props) {
   assertIntegerType(dataset);
   assertNumDims(dataset, 3);
 
-  const value = useDatasetValue(dataset, '24170,:,:');
+  const [searchParams] = useSearchParams();
+  const frame = searchParams.get('frame') || 0;
+
+  const value = useDatasetValue(dataset, `${frame},:,:`);
 
   return (
     <ImageVis

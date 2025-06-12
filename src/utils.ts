@@ -7,9 +7,11 @@ export function removeSignInParams(): void {
     params.delete(p);
   });
 
+  const queryStr = params.toString();
+
   globalThis.history.replaceState(
     null,
     '',
-    `${globalThis.location.pathname}?${params.toString()}`,
+    `${globalThis.location.pathname}${queryStr ? `?${queryStr}` : ''}`,
   );
 }
