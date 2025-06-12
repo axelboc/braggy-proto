@@ -7,10 +7,10 @@ import {
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useAuth } from 'react-oidc-context';
 
-const ICATPLUS_URL = import.meta.env.VITE_ICATPUS_URL;
+const ICATPLUS_URL = import.meta.env.VITE_ICATPLUS_URL;
 
 export function useSessionId(): string {
-  assertEnvVar(ICATPLUS_URL, 'VITE_ICATPUS_URL');
+  assertEnvVar(ICATPLUS_URL, 'VITE_ICATPLUS_URL');
 
   const { user } = useAuth();
   assertDefined(user);

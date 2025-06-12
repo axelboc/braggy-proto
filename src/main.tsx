@@ -5,9 +5,11 @@ import { assertEnvVar, assertNonNull } from '@h5web/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from 'react-error-boundary';
 import { AuthProvider } from 'react-oidc-context';
 
 import Auth from './Auth';
+import ErrorFallback from './ErrorFallback';
 import Viewer from './Viewer';
 
 const SSO_AUTHORITY_URL = import.meta.env.VITE_SSO_AUTHORITY_URL;
@@ -36,7 +38,9 @@ createRoot(rootElem).render(
         }}
       >
         <Auth>
-          <Viewer />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Viewer />
+          </ErrorBoundary>
         </Auth>
       </AuthProvider>
     </QueryClientProvider>

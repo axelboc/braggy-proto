@@ -1,11 +1,15 @@
+import { assertEnvVar } from '@h5web/app';
 import { type FallbackProps } from 'react-error-boundary';
 
 import styles from './ErrorFallback.module.css';
+import { SearchParamError } from './errors';
 import { CANCELLED_ERROR_MSG } from './utils-data';
+
+const REPORT_EMAIL = import.meta.env.VITE_REPORT_EMAIL;
 
 function prepareReport(message: string): string {
   return `<< THIS EMAIL IS A TEMPLATE >>
-<< Please add your name and as much information as possible to help us debug the issue. >>
+<< Please sign with your name and provide as much information as possible to help us debug the issue. >>
 
 Hi,
 
@@ -17,7 +21,8 @@ Here is some additional context:
 
   - Browser: ${navigator.userAgent}
   - URL: ${globalThis.location.href}
-  - << proposal, HDF5 file name, etc. >>
+
+<< Explain how you got here; what you were trying to achieve when the error occurred; etc. >>
 
 Thanks,
 << Name >>`;
@@ -25,6 +30,7 @@ Thanks,
 
 function ErrorFallback(props: FallbackProps) {
   const { error, resetErrorBoundary } = props;
+  assertEnvVar(REPORT_EMAIL, 'VITE_REPORT_EMAIL');
 
   if (error instanceof Error && error.message === CANCELLED_ERROR_MSG) {
     return (
@@ -45,22 +51,39 @@ function ErrorFallback(props: FallbackProps) {
   }
 
   const msg = error instanceof Error ? error.message : 'Unknown error';
+  const isSearchParamError = error instanceof SearchParamError;
 
   return (
     <div className={styles.root}>
-      <p className={styles.error}>
-        {msg}. Please try again, or report the error if it persists.
+      <p className={styles.advice}>
+        <strong>An error occurred.</strong> Please{' '}
+        {isSearchParamError
+          ? 'open Braggy again from the Data Portal'
+          : 'try again'}
+        , or report the error if it persists.
       </p>
-      <a
-        className={styles.reportBtn}
-        target="_blank"
-        href={`mailto:h5web@esrf.fr?subject=[Hibou]%20Error%20report&body=${encodeURIComponent(
-          prepareReport(msg),
-        )}`}
-        rel="noreferrer"
-      >
-        Report error
-      </a>
+      <p className={styles.error}>&gt;&gt; {msg}</p>
+      <div>
+        {!isSearchParamError && (
+          <button
+            className={styles.btn}
+            type="button"
+            onClick={() => globalThis.location.reload()}
+          >
+            Reload page
+          </button>
+        )}
+        <a
+          className={styles.btn}
+          target="_blank"
+          href={`mailto:${REPORT_EMAIL}?subject=[Braggy]%20Error%20report&body=${encodeURIComponent(
+            prepareReport(msg),
+          )}`}
+          rel="noreferrer"
+        >
+          Report error
+        </a>
+      </div>
     </div>
   );
 }
