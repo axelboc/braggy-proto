@@ -8,8 +8,10 @@ import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { AuthProvider } from 'react-oidc-context';
 
-import Auth from './Auth';
+import DataProvider from './DataProvider';
 import ErrorFallback from './ErrorFallback';
+import SingleSignOn from './SingleSignOn';
+import { removeSignInParams } from './utils';
 import Viewer from './Viewer';
 
 const SSO_AUTHORITY_URL = import.meta.env.VITE_SSO_AUTHORITY_URL;
@@ -28,20 +30,16 @@ createRoot(rootElem).render(
       <AuthProvider
         authority={SSO_AUTHORITY_URL}
         client_id={SSO_CLIENT_ID}
-        redirect_uri={globalThis.location.origin}
-        onSigninCallback={() => {
-          globalThis.history.replaceState(
-            {},
-            document.title,
-            globalThis.location.pathname,
-          );
-        }}
+        redirect_uri={globalThis.location.href}
+        onSigninCallback={removeSignInParams}
       >
-        <Auth>
+        <SingleSignOn>
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Viewer />
+            <DataProvider>
+              <Viewer />
+            </DataProvider>
           </ErrorBoundary>
-        </Auth>
+        </SingleSignOn>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,

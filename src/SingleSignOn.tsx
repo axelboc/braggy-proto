@@ -3,11 +3,11 @@ import { useAutoSignin } from 'react-oidc-context';
 
 interface Props {}
 
-function Auth(props: PropsWithChildren<Props>) {
+function SingleSignOn(props: PropsWithChildren<Props>) {
   const { children } = props;
   const { isAuthenticated } = useAutoSignin();
 
   return isAuthenticated ? children : null;
 }
 
-export default Auth;
+export default SingleSignOn;
